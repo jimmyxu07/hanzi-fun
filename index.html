@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Hanzi Beasts — combine Chinese radicals, summon beasts</title>
+<meta name="description" content="A browser puzzle: drag Chinese radicals together, discover the character they build, and summon the beast hiding inside it. 12 beasts to find.">
+<meta name="theme-color" content="#FFF7E8">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://hanzi.fun/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hanzi.fun/">
+<meta property="og:title" content="Hanzi Beasts — combine Chinese radicals, summon beasts">
+<meta property="og:description" content="A browser puzzle: drag Chinese radicals together, discover the character they build, and summon the beast hiding inside it. 12 beasts to find.">
+<meta property="og:image" content="https://hanzi.fun/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hanzi Beasts — combine Chinese radicals, summon beasts">
+<meta name="twitter:description" content="Combine Chinese radicals. Summon the beast hiding inside the character.">
+<meta name="twitter:image" content="https://hanzi.fun/og-image.png">
+
+<link rel="stylesheet" href="styles.css">
+<!-- Plausible（自建实例，需先在 plausible.shipsolo.io 添加 site: hanzi.fun） -->
+<script defer data-domain="hanzi.fun" src="https://plausible.shipsolo.io/js/script.js"></script>
+</head>
+<body>
+
+<header class="wrap">
+  <h1>Hanzi Beasts</h1>
+  <p class="tag">Combine Chinese radicals. Summon the beast hiding inside the character.</p>
+  <div class="prog">Found <b id="progress">0 / 12</b></div>
+</header>
+
+<main class="wrap">
+
+  <section class="bench">
+    <div id="slots" class="slots"></div>
+    <div class="controls">
+      <button id="combine" class="primary" disabled>Combine</button>
+      <button id="clear" class="ghost">Clear</button>
+      <button id="hintBtn" class="ghost">Hint</button>
+    </div>
+    <div id="feedback" class="feedback"></div>
+    <div id="hint" class="hint"></div>
+  </section>
+
+  <section>
+    <h2>Radicals <span class="muted">tap two or three, then Combine</span></h2>
+    <div id="shelf" class="shelf"></div>
+  </section>
+
+  <section>
+    <h2>Beast dex <span class="muted">tap a found beast to see it again · <a href="gallery.html" style="color:var(--accent)">art gallery</a></span></h2>
+    <div id="dex"></div>
+  </section>
+
+</main>
+
+<footer class="wrap muted">
+  Prototype v0.2 · 14 radicals · 12 beasts · press <b>S</b> for local stats<br>
+  <a href="/privacy" style="color:inherit">Privacy</a> — cookieless analytics only, no accounts, no ads
+</footer>
+
+<div id="modal" class="modal"><div id="modalBody" class="modal-card"></div></div>
+<div id="statsPanel" class="stats"></div>
+
+<script type="module" src="src/game.js"></script>
+</body>
+</html>

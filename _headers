@@ -1,0 +1,12 @@
+# Cloudflare Pages 缓存规则
+# 字体：文件名固定，可长缓存（改字重会换文件名，不会吃到旧缓存）
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML：每次部署都可能变，别缓存
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# 根路径也要走这条，否则 / 会被缓存住
+/
+  Cache-Control: public, max-age=0, must-revalidate

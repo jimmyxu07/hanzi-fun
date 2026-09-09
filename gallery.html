@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-page-node-id="MYI6QIoHR25DADrZ1DRiq4">
+<head data-page-node-id="tpzCJq0u6pohaGBKpCbbye">
+<meta charset="UTF-8" data-page-node-id="o7uNBFnJzqIYqxyaAQeFDR">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="jEK3csC7sywtFMwyKXtUsG">
+<title>Hanzi Beasts — art gallery (internal review)</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="styles.css" data-page-node-id="O7STwBrsBLVgBs9DlxDl6s">
+<style>
+  .gwrap { max-width: 900px; margin: 0 auto; padding: 0 18px 60px; }
+  .ghead { text-align: center; padding: 28px 18px 10px; }
+  .ghead h1 { font-size: 26px; font-weight: 800; margin: 0 0 4px; }
+  .ghead p { margin: 0; color: var(--muted); font-size: 13.5px; }
+  .back {
+    display: inline-block; margin-top: 10px; font-size: 13px; font-weight: 700;
+    color: var(--accent); text-decoration: none;
+  }
+  .sec-title {
+    font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted); margin: 34px 0 4px;
+  }
+  .sec-note { font-size: 12.5px; color: var(--muted); margin: 0 0 14px; }
+
+  /* 手绘：大卡 */
+  .hero-grid {
+    display: grid; gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+  .hero {
+    background: var(--card); border: 3px solid var(--line); border-radius: 22px;
+    padding: 12px 10px 14px; text-align: center;
+    box-shadow: 0 3px 0 rgba(59,50,40,.16);
+  }
+  .hero svg { width: 100%; height: auto; display: block; }
+  .hero-hz { font-family: var(--hz); font-size: 38px; line-height: 1.1; margin-top: 2px; }
+  .hero-py { font-size: 11.5px; color: var(--muted); }
+  .hero-en { font-size: 14px; font-weight: 800; }
+  .hero-name { font-size: 12px; font-weight: 700; color: var(--accent); }
+  .hero-blurb { font-size: 11.5px; color: #6A5F52; margin: 6px 2px 0; line-height: 1.45; }
+  .tagline {
+    display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .1em;
+    background: var(--accent); color: #fff; padding: 2px 9px; border-radius: 999px;
+    margin-bottom: 4px;
+  }
+  .tagline.auto { background: #B0A48C; }
+
+  /* 程序化：小格 */
+  .auto-grid {
+    display: grid; gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  }
+  .mini {
+    background: var(--card); border: 2.5px solid var(--line); border-radius: 16px;
+    padding: 6px 4px 8px; text-align: center;
+  }
+  .mini svg { width: 100%; height: auto; display: block; }
+  .mini-hz { font-family: var(--hz); font-size: 22px; line-height: 1.15; }
+  .mini-en { font-size: 10px; color: var(--muted); line-height: 1.25; }
+  .mini-name { font-size: 10px; color: var(--accent); font-weight: 700; line-height: 1.25; }
+</style>
+</head>
+<body data-page-node-id="3ql37C504l0rdxE9Ar9KpR">
+
+<div class="ghead" data-page-node-id="EjqFeyFlgRhXuZ1RNPr45b">
+  <h1 data-page-node-id="GYzATlsCQhNb5siSjAJL6a">Art review — 12 beasts (v1 set)</h1>
+  <p data-page-node-id="YLiUlBAM811JrVqGBBOdci">5 hand-drawn (top) vs 7 procedural placeholders (bottom).<br data-page-node-id="jwvuZmyj7JmC383CdMVxHC">
+     Judge two things: <b data-page-node-id="neV2Z6E0UbB5QQgwwAroco">cuteness</b>, and whether the two tiers look like the same game.</p>
+  <a class="back" href="index.html" data-page-node-id="ph7CYi2QikiX79APdgsy8i">&larr; back to the game</a>
+</div>
+
+<div class="gwrap" data-page-node-id="b8kAt5ii7AqSQvyxi9OYgx">
+  <div class="sec-title" data-page-node-id="MAPktnATmfTGjxXgwVZxGL">Tier A · hand-drawn (5)</div>
+  <p class="sec-note" data-page-node-id="wj2lP2D71IrdfV9WKCZ0LS">These five are the bet. If they don't land, the whole art direction changes.</p>
+  <div id="handGrid" class="hero-grid" data-page-node-id="4gtnUWwoPLBgIMfXUBtm0V"></div>
+
+  <div class="sec-title" data-page-node-id="HVutv4Ftehw93AVD17FitA">Tier B · procedural placeholder (7)</div>
+  <p class="sec-note" data-page-node-id="zXUCRSoeZIrmzEvF757G0i">Same id-hash generator, only palette + ear/tail/mark vary. Meant to be replaced one by one.</p>
+  <div id="autoGrid" class="auto-grid" data-page-node-id="1OKGjAF9MPCwOiSgMbemtk"></div>
+</div>
+
+<script type="module">
+import { ACTIVE_RECIPES as RECIPES, ACTIVE_RADICALS as RADICALS } from './src/data.js';
+import { beastSVG } from './src/beasts.js';
+
+const hand = RECIPES.filter(r => r.art === 'hand');
+const auto = RECIPES.filter(r => r.art !== 'hand');
+
+const formula = r => r.parts
+  .map(p => `<span class="chip" style="--c:${RADICALS[p].color}">${RADICALS[p].c}</span>`)
+  .join('<span class="plus">+</span>');
+
+document.getElementById('handGrid').innerHTML = hand.map(r => `
+  <div class="hero">
+    <span class="tagline">HAND-DRAWN</span>
+    ${beastSVG(r)}
+    <div class="hero-hz">${r.out}</div>
+    <div class="hero-py">${r.py}</div>
+    <div class="hero-en">${r.en}</div>
+    <div class="hero-name">${r.beast}</div>
+    <p class="hero-blurb">${r.blurb}</p>
+  </div>`).join('');
+
+document.getElementById('autoGrid').innerHTML = auto.map(r => `
+  <div class="mini">
+    ${beastSVG(r)}
+    <div class="mini-hz">${r.out}</div>
+    <div class="mini-en">${r.en}</div>
+    <div class="mini-name">${r.beast}</div>
+  </div>`).join('');
+</script>
+</body>
+</html>

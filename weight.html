@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hanzi Beasts — font weight pick</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .wwrap { max-width: 780px; margin: 0 auto; padding: 0 18px 50px; }
+  .whead { text-align: center; padding: 26px 18px 8px; }
+  .whead h1 { font-size: 24px; font-weight: 800; margin: 0 0 4px; }
+  .whead p { margin: 0; color: var(--muted); font-size: 13.5px; }
+  .wtbl { display: grid; gap: 14px; margin-top: 22px; }
+  .wrow {
+    background: var(--card); border: 2.5px solid var(--line); border-radius: 18px;
+    padding: 14px 16px 16px;
+  }
+  .wrow.is-default { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(242,112,63,.14); }
+  .wlabel {
+    font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 8px; display: flex; gap: 8px; align-items: center;
+  }
+  .wrow.is-default .wlabel { color: var(--accent); }
+  .wbig { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .wsm { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-top: 6px; color: #6A5F52; }
+  .w-note { font-size: 12.5px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+  a.back { color: var(--accent); font-weight: 700; text-decoration: none; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<div class="whead">
+  <h1>Pick a weight for the hanzi</h1>
+  <p>Same glyphs, three weights. Current default: <b>500 Medium</b>.<br>
+     Bigger glyphs and the small dex labels read differently &mdash; check both.</p>
+  <a class="back" href="gallery.html">&larr; art gallery</a>
+</div>
+
+<div class="wwrap">
+  <div class="wtbl">
+    <div class="wrow">
+      <div class="wlabel">400 · Regular</div>
+      <div class="wbig">
+        <span class="wgt-sample" style="font-family:var(--hz); font-size:52px; font-weight:400">明森仙囚好</span>
+      </div>
+      <div class="wsm">
+        <span class="wgt-sample" style="font-family:var(--hz); font-size:26px; font-weight:400">日月木火山石人口目手</span>
+        <span style="font-size:13px">Bright · Forest · Immortal</span>
+      </div>
+      <div class="w-note">Cleanest, closest to textbook. Risks looking thin/serious rather than cuddly.</div>
+    </div>
+
+    <div class="wrow is-default">
+      <div class="wlabel">500 · Medium &nbsp;<span style="color:var(--accent)">current</span></div>
+      <div class="wbig">
+        <span class="wgt-sample" style="font-family:var(--hz); font-size:52px; font-weight:500">明森仙囚好</span>
+      </div>
+      <div class="wsm">
+        <span class="wgt-sample" style="font-family:var(--hz); font-size:26px; font-weight:500">日月木火山石人口目手</span>
+        <span style="font-size:13px">Bright · Forest · Immortal</span>
+      </div>
+      <div class="w-note">A touch of body-weight. My pick: reads toy-like at large sizes, still legible at 26px.</div>
+    </div>
+
+    <div class="wrow">
+      <div class="wlabel">700 · Bold</div>
+      <div class="wbig">
+        <span class="wgt-sample" style="font-family:var(--hz); font-size:52px; font-weight:700">明森仙囚好</span>
+      </div>
+      <div class="wsm">
+        <span class="wgt-sample" style="font-family:var(--hz); font-size:26px; font-weight:700">日月木火山石人口目手</span>
+        <span style="font-size:13px">Bright · Forest · Immortal</span>
+      </div>
+      <div class="w-note">Most sticker-like and most visible in a Reddit thumbnail &mdash; but small dex labels may clog.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

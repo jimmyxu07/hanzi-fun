@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy — Hanzi Beasts</title>
+<meta name="description" content="What data Hanzi Beasts collects (spoiler: almost nothing), what stays on your device, and your rights.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .doc { max-width: 680px; margin: 0 auto; padding: 32px 20px 64px; }
+  .doc h1 { font-size: 30px; margin-bottom: 4px; }
+  .doc .upd { font-size: 13px; color: #A79A83; margin-bottom: 28px; }
+  .doc h2 { font-size: 18px; margin: 28px 0 8px; }
+  .doc p, .doc li { font-size: 15px; line-height: 1.65; color: #4A4033; }
+  .doc ul { padding-left: 22px; margin: 8px 0; }
+  .doc code { background: #F7F2E8; border: 1px solid #E4DAC6; border-radius: 4px; padding: 1px 6px; font-size: 13px; }
+  .doc .card { background: #FFFDF6; border: 1px solid #E4DAC6; border-radius: 12px; padding: 16px 18px; margin: 14px 0; }
+  .doc a { color: #B0701F; }
+</style>
+</head>
+<body>
+<div class="doc">
+  <h1>Privacy</h1>
+  <p class="upd">Last updated: 2026-09-09 · Hanzi Beasts (hanzi.fun)</p>
+
+  <p>This game is a small static website. There are no accounts, no cookies, no ads,
+  and no third-party trackers beyond the single analytics service described below.
+  Here is everything that happens with data, in plain words.</p>
+
+  <h2>1. Analytics (the only thing that leaves your browser)</h2>
+  <div class="card">
+    <p>We run our own self-hosted instance of <a href="https://plausible.io" rel="noopener">Plausible Analytics</a>
+    at <code>plausible.shipsolo.io</code> to count visitors and see how the game is played.
+    It is cookieless and does not store your IP address; country and device type are derived
+    and stored <em>instead of</em> raw identifiers.</p>
+    <ul>
+      <li>Page URL, referrer, country, browser / OS / device type</li>
+      <li>Gameplay events with non-personal properties: which radical you picked,
+          which combinations succeeded or failed, when a hint was shown, when you copy a share text</li>
+    </ul>
+    <p>We use this only to improve the game. We do not sell or share it, and there is
+    nobody to profile — the analytics contain no identifiers that could point back to you.</p>
+  </div>
+
+  <h2>2. What stays on your device (never uploaded)</h2>
+  <div class="card">
+    <p>Your progress and a log of your gameplay actions are stored in your browser's
+    <code>localStorage</code> under <code>hanzi-beasts-v1</code> and <code>hanzi-beasts-v1-log</code>.
+    This data never leaves your device.</p>
+    <p>To erase it: press <b>S</b> in the game and click <b>Reset progress</b>, or clear
+    site data in your browser settings.</p>
+  </div>
+
+  <h2>3. What we don't do</h2>
+  <ul>
+    <li>No cookies, no cross-site tracking, no advertising, no data sales or "sharing" as defined by CCPA</li>
+    <li>No accounts, so we have no names, emails, or passwords</li>
+    <li>No user-generated content and no chat features</li>
+    <li>We don't knowingly collect data from children under 13 — in fact, we don't knowingly collect personal data from anyone</li>
+  </ul>
+
+  <h2>4. Your rights (GDPR / CCPA)</h2>
+  <p>Because we never collect identifiers, we are unable to identify any individual visitor —
+  which makes most data requests self-service: erasing your gameplay data is the
+  <b>Reset progress</b> button; analytics records contain no link to you.
+  If you still have a question, write to us and we'll answer within 30 days.</p>
+
+  <h2>5. Retention &amp; contact</h2>
+  <p>Analytics data is kept on our own server (hosted in the United States) for as long as the project is running.
+  Everything else lives in your browser and expires when you clear it.</p>
+  <p>Contact: <code>support@hanzi.fun</code></p>
+
+  <p class="upd" style="margin-top:28px">Hanzi Beasts is an entertainment product. Character
+  stories are simplified for fun and are not a language-learning reference.</p>
+</div>
+</body>
+</html>

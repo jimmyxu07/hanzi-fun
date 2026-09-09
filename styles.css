@@ -1,0 +1,208 @@
+/* Noto Sans SC（OFL，可 web 分发）。三档字重各约 6KB，谁用谁下载。
+   注意：别拿 NotoSansSC[wght].ttf 可变字体直接子集化 —— 默认实例落在 wght=100(Thin)，
+   大字显示会细得发飘。这里用的是 @fontsource 已实例化好的静态字重。 */
+@font-face {
+  font-family: 'HanziSub';
+  src: url('fonts/hanzi-400.woff2') format('woff2');
+  font-weight: 400; font-display: swap;
+}
+@font-face {
+  font-family: 'HanziSub';
+  src: url('fonts/hanzi-500.woff2') format('woff2');
+  font-weight: 500; font-display: swap;
+}
+@font-face {
+  font-family: 'HanziSub';
+  src: url('fonts/hanzi-700.woff2') format('woff2');
+  font-weight: 700; font-display: swap;
+}
+
+:root {
+  --bg: #FFF7E8;
+  --card: #FFFFFF;
+  --ink: #3B3228;
+  --muted: #8A7E6E;
+  --accent: #F2703F;
+  --accent-d: #D4552A;
+  --line: #3B3228;
+  --hz: 'HanziSub', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+}
+
+/* 汉字统一 Medium：比 Regular 更有卡通分量感，比 Bold 更透气 */
+.rad-c, .slot-c, .cell-c, .beast-hz, .hero-hz, .mini-hz, .chip, .wgt-sample { font-weight: 500; }
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 18px; }
+
+header { padding: 30px 18px 14px; text-align: center; }
+h1 {
+  font-size: 30px; font-weight: 800; margin: 0;
+  letter-spacing: -0.02em;
+}
+.tag { margin: 6px 0 12px; color: var(--muted); font-size: 14px; }
+.prog {
+  display: inline-block; padding: 5px 16px; border-radius: 999px;
+  background: var(--card); border: 2px solid var(--line); font-size: 13px;
+}
+.prog b { font-weight: 700; }
+
+h2 {
+  font-size: 15px; font-weight: 700; margin: 30px 0 12px;
+  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+}
+.muted { color: var(--muted); font-weight: 400; font-size: 12.5px; }
+
+/* ---------- 工作台 ---------- */
+.bench {
+  background: var(--card); border: 2.5px solid var(--line);
+  border-radius: 20px; padding: 18px; text-align: center;
+}
+.slots { display: flex; justify-content: center; gap: 12px; margin-bottom: 14px; }
+.slots.shake { animation: shake 0.4s; }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(7px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(3px); }
+}
+.slot, .rad, .cell {
+  font-family: inherit; cursor: pointer; background: var(--card);
+  border: 2.5px solid var(--line); border-radius: 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: transform .1s, background .15s, box-shadow .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.slot { width: 90px; height: 96px; }
+.slot.empty { border-style: dashed; border-color: #CFC3B2; background: #FDFAF3; }
+.slot-q { font-size: 26px; color: #CFC3B2; font-weight: 700; }
+.slot-c { font-family: var(--hz); font-size: 40px; line-height: 1.1; }
+.slot-en { font-size: 11px; color: var(--muted); }
+.slot.filled { background: color-mix(in srgb, var(--c) 18%, #fff); }
+
+.controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+button {
+  font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+  border-radius: 14px; padding: 11px 22px; border: 2.5px solid var(--line);
+  background: var(--card); color: var(--ink);
+  transition: transform .08s, box-shadow .08s;
+  -webkit-tap-highlight-color: transparent;
+}
+button:active:not(:disabled) { transform: translateY(2px); box-shadow: none; }
+button:disabled { opacity: .45; cursor: not-allowed; }
+.primary { background: var(--accent); color: #fff; box-shadow: 0 3px 0 var(--accent-d); }
+.primary:not(:disabled):hover { background: #F57F52; }
+.primary:active:not(:disabled) { box-shadow: 0 1px 0 var(--accent-d); }
+.ghost { background: var(--card); }
+
+.feedback {
+  min-height: 22px; margin-top: 12px; font-size: 13.5px; color: var(--muted);
+  opacity: 0; transition: opacity .18s;
+}
+.feedback.show { opacity: 1; }
+.feedback.lv2 { color: #C77B12; font-weight: 600; }
+
+.hint {
+  display: none; margin-top: 10px; font-size: 13px; color: #4A6E8A;
+  background: #EEF5FA; border: 2px solid #CFE2EE; border-radius: 12px; padding: 8px 12px;
+}
+.hint.show { display: block; }
+
+/* ---------- 材料架 ---------- */
+.shelf {
+  display: grid; gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+}
+.rad { width: 100%; height: 78px; padding: 4px 2px; }
+.rad:hover { background: color-mix(in srgb, var(--c) 20%, #fff); transform: translateY(-2px); }
+.rad-c { font-family: var(--hz); font-size: 32px; line-height: 1.15; }
+.rad-en { font-size: 10.5px; color: var(--muted); }
+
+/* ---------- 图鉴 ---------- */
+.dex-group { margin-bottom: 20px; }
+.dex-group h3 {
+  font-size: 12.5px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .06em; margin: 0 0 8px;
+}
+.dex-grid {
+  display: grid; gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+}
+.cell { width: 100%; min-height: 104px; padding: 5px 2px; gap: 1px; }
+.cell.locked { background: #F7F2E8; border-color: #DCD2C0; border-style: dashed; cursor: default; }
+.cell-q { font-size: 24px; color: #C9BEA9; font-weight: 700; }
+.cell.got { background: color-mix(in srgb, var(--c) 16%, #fff); }
+.cell.got:hover { transform: translateY(-2px); }
+.cell-art {
+  width: 44px; height: 44px; display: block; flex: none;
+  filter: drop-shadow(0 1px 0 rgba(59,50,40,.18));
+}
+.cell-art svg { width: 100%; height: 100%; display: block; }
+.cell-c { font-family: var(--hz); font-size: 26px; line-height: 1.1; }
+.cell-en { font-size: 10px; color: var(--muted); line-height: 1.15; text-align: center; }
+
+/* ---------- 兽卡片 ---------- */
+.modal {
+  position: fixed; inset: 0; background: rgba(59, 50, 40, .55);
+  display: none; align-items: center; justify-content: center; padding: 20px; z-index: 50;
+}
+.modal.show { display: flex; }
+.modal-card {
+  background: var(--card); border: 3px solid var(--line); border-radius: 24px;
+  padding: 22px; max-width: 380px; width: 100%; text-align: center;
+  max-height: 90vh; overflow-y: auto;
+  animation: pop .28s cubic-bezier(.2,1.3,.5,1);
+}
+@keyframes pop { from { transform: scale(.85) translateY(10px); opacity: 0; } }
+.beast-art { width: 190px; margin: 0 auto 6px; }
+.newtag {
+  display: inline-block; background: var(--accent); color: #fff;
+  font-size: 11px; font-weight: 800; letter-spacing: .08em;
+  padding: 3px 12px; border-radius: 999px; margin-bottom: 8px;
+}
+.beast-hz { font-family: var(--hz); font-size: 54px; line-height: 1.1; }
+.beast-py { font-size: 13px; color: var(--muted); margin-bottom: 2px; }
+.beast-en { font-size: 19px; font-weight: 800; }
+.beast-name { font-size: 13px; color: var(--accent); font-weight: 700; margin-top: 2px; }
+.beast-blurb { font-size: 13.5px; color: #6A5F52; margin: 10px 4px 14px; }
+.beast-formula { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 16px; }
+.chip {
+  font-family: var(--hz); font-size: 22px; width: 42px; height: 42px;
+  display: flex; align-items: center; justify-content: center;
+  border: 2.5px solid var(--line); border-radius: 12px;
+  background: color-mix(in srgb, var(--c) 20%, #fff);
+}
+.plus { color: var(--muted); font-weight: 700; }
+.beast-actions { display: flex; gap: 8px; justify-content: center; }
+
+/* ---------- 统计面板 ---------- */
+.stats {
+  position: fixed; right: 16px; bottom: 16px; width: 300px; max-width: calc(100vw - 32px);
+  background: var(--card); border: 2.5px solid var(--line); border-radius: 16px;
+  padding: 14px 16px; font-size: 13px; display: none; z-index: 60;
+}
+.stats.show { display: block; }
+.stats h3 { margin: 0 0 8px; font-size: 14px; }
+.stats h4 { margin: 12px 0 6px; font-size: 12px; color: var(--muted); }
+.srow { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; }
+.stats button { margin-top: 12px; width: 100%; padding: 8px; font-size: 13px; }
+
+footer { text-align: center; padding: 30px 18px 46px; font-size: 12px; }
+
+@media (max-width: 480px) {
+  h1 { font-size: 25px; }
+  .slot { width: 78px; height: 88px; }
+  .slot-c { font-size: 34px; }
+  .beast-hz { font-size: 46px; }
+}

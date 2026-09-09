@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hanzi Beasts — OG image</title>
+<meta name="robots" content="noindex">
+<style>
+  @font-face { font-family: 'HanziSub'; src: url('fonts/hanzi-500.woff2') format('woff2'); }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background: #FFF7E8;
+    font-family: 'HanziSub', -apple-system, 'Segoe UI', system-ui, sans-serif;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .bg-dots { position: absolute; inset: 0; opacity: .5; }
+  .inner { position: relative; text-align: center; padding: 0 60px; }
+  h1 {
+    font-size: 92px; letter-spacing: -1px; color: #3B3228; line-height: 1;
+    font-weight: 500;
+  }
+  .tag { margin-top: 20px; font-size: 30px; color: #8A7B66; font-weight: 400; }
+  .row { margin-top: 46px; display: flex; gap: 30px; justify-content: center; align-items: flex-end; }
+  .row svg { width: 150px; height: 150px; }
+  .formula {
+    margin-top: 40px; font-size: 40px; color: #3B3228;
+    display: flex; gap: 14px; align-items: center; justify-content: center; font-weight: 500;
+  }
+  .formula .op, .formula .eq { color: #C9BEA9; font-size: 32px; }
+  .pill {
+    margin-top: 34px; display: inline-block;
+    background: #3B3228; color: #FFF7E8; font-size: 22px; letter-spacing: 2px;
+    padding: 10px 24px; border-radius: 999px; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+  <div class="bg-dots" id="dots"></div>
+  <div class="inner">
+    <h1>Hanzi Beasts</h1>
+    <p class="tag">Combine Chinese radicals. Summon the beast inside the character.</p>
+    <div class="row" id="row"></div>
+    <div class="formula"><span id="f"></span></div>
+    <div class="pill">hanzi.fun</div>
+  </div>
+
+<script type="module">
+import { ACTIVE_RECIPES as RECIPES, RADICALS } from './src/data.js';
+import { beastSVG } from './src/beasts.js';
+
+// 背景圆点
+const d = document.getElementById('dots');
+let s = '<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">';
+const cols = ['#FFD9A0', '#A8D8C0', '#F5B7B1', '#BFD7EA'];
+for (let i = 0; i < 60; i++) {
+  const x = (i * 197) % 1200, y = (i * 313) % 630, r = 3 + (i % 4) * 2;
+  s += `<circle cx="${x}" cy="${y}" r="${r}" fill="${cols[i % 4]}" opacity=".5"/>`;
+}
+d.innerHTML = s + '</svg>';
+
+// 5 只手绘兽
+const picks = ['ming', 'hao', 'qiu', 'sen', 'xian'].map(id => RECIPES.find(r => r.id === id)).filter(Boolean);
+document.getElementById('row').innerHTML = picks.map(r => beastSVG(r)).join('');
+
+// 日 + 月 = 明
+const ming = RECIPES.find(r => r.id === 'ming');
+if (ming) {
+  document.getElementById('f').innerHTML =
+    ming.parts.map(p => RADICALS[p].c).join('<span class="op">+</span>') +
+    '<span class="eq">=</span>' + ming.out;
+}
+</script>
+</body>
+</html>
