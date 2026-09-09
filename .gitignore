@@ -4,3 +4,8 @@
 *.local
 node_modules/
 .DS_Store
+# 宣传截图（本地产物，不进仓库、不上传为静态资产）
+shot-*.png
+preview.png
+gallery-preview.png
+dex-preview.png
