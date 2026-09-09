@@ -2,7 +2,7 @@
 // Deployed via `npx wrangler deploy` (no build step).
 {
   "$schema": "https://unpkg.com/wrangler/config-schema.json",
-  "name": "long-king-ebb2",
+  "name": "hanzi-fun",
   "compatibility_date": "2026-09-01",
   "assets": {
     "directory": ".",
