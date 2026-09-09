@@ -276,3 +276,10 @@ if (new URLSearchParams(location.search).has('all')) {
 renderShelf();
 renderAll();
 if (state.unlocked.size === 0) track('session_start', { fresh: true });
+
+// ?demo=<recipeId> —— 直接展开某只兽的卡片，用于宣传图/截图，不写存档、不触发埋点
+const demoId = new URLSearchParams(location.search).get('demo');
+if (demoId) {
+  const rec = RECIPES.find(r => r.id === demoId);
+  if (rec) { state.slots = [...rec.parts]; renderSlots(); openBeast(rec, false); }
+}
