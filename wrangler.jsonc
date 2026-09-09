@@ -1,0 +1,12 @@
+// Cloudflare Workers Builds config — static-assets-only worker.
+// Deployed via `npx wrangler deploy` (no build step).
+{
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "long-king-ebb2",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": ".",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  }
+}
