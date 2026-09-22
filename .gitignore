@@ -9,3 +9,7 @@ shot-*.png
 preview.png
 gallery-preview.png
 dex-preview.png
+# 移动端调试截图（仅自检用，绝不外发）
+mobile-check.png
+# itch 封面的 2x 中间产物（源文件是 cover-itch.html，可随时重渲）
+itch-cover-2x.png

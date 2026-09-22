@@ -24,6 +24,20 @@
 2. **必须直链到单个游戏**，不能链合集/目录 → 链接填 `https://hanzi.fun`，正文里也别塞一堆别的链接。
 3. **3 个月内不得重复发同一款游戏** → 这是首次发布，OK；但**发完一次就别再发第二次**，有重大更新要先 Modmail 报备。
 
+### 🔄 2026-09-13 复盘：为什么第一条帖子被全站 spam filter 吃掉
+
+9/12 首发帖被 Reddit 的**全站垃圾过滤**自动移除（不是版主手动删）。已知诱因是「**新账号 + 全新域名 + 外链**」这个组合，三者同时出现时过滤器几乎必然命中。
+
+**新变量：把外链换成 itch.io 页面。** 项目已上架 itch.io：
+- 项目页：`https://hanzifun.itch.io/hanzi-beasts`
+- Devlog：`https://hanzifun.itch.io/hanzi-beasts/devlog/1662254/12-beasts-in-40-to-go-which-pair-should-become-beast-13`
+
+`itch.io` 在 Reddit 眼里是有高信誉历史的老域名，而 `hanzi.fun` 是刚注册几天的新域名——**同样的文案，换掉这个链接就有机会过检**。取舍：
+- r/WebGames 的规则 2 要"直链单个游戏"，itch 项目页本身就是一个单游戏页（页内可直接玩），**满足规则**，所以换链接不违规。
+- 但代价是流量落在 itch 而不是自有站，Plausible 统计不到。**建议做法**：Modmail 里先问版主"用 itch 页面链接是否可接受"，得到许可再发；如果版主坚持直链自有域，那就先按养号路线（评论区活跃 3-5 天）再发一次。
+
+> 无论走哪条，**先 Modmail 报备再发**，不要直接重发。3 个月禁重发规则仍然有效，所以第二次机会必须一次过。
+
 > ⚠️ 一条我们可能踩到的：该 sub 规则 P6 提到"需要非标准设备（如智能手机）的游戏不允许"。我们是桌面优先，**手机上能打开但手感一般**。建议正文里如实写 `Best on desktop`，不要假装移动完美——被拆穿比承认缺点严重得多。
 
 ### 发之前的账号体检（比文案重要）
@@ -152,7 +166,89 @@ Only thing I need from you: how long until you got your first one, and where you
 
 ---
 
-## 六、发完之后看什么（别看点赞）
+## 六、Modmail 文案（2026-09-13）
+
+### 先看前置动作（顺序不能反）
+
+1. **今天先别发 Modmail。** 先在 r/WebGames 里**认真评论 3-5 条别人的帖子**（要带具体内容的评论，不是 "cool game"），隔一天再发。零 karma 新号的 modmail，版主大概率直接跳过——**这封信的内容没问题，但发信人的账号状态决定它会不会被读**。
+2. 从 sub 页面 About / 侧栏的 **`Message the mods`** 按钮进（最可靠）。URL 形式约为 `https://www.reddit.com/message/compose?to=/r/WebGames`，**这条我没法验证**（本机访问不了 reddit.com），以按钮为准。
+3. 发完**等 48-72 小时**。版主不回是常态，不是被拒绝。
+
+### Subject（收件人：r/WebGames mods）
+
+```
+Post removed by spam filter — Hanzi Beasts, browser puzzle
+```
+
+### 正文（整段复制）
+
+```
+Hi mods,
+
+On Sep 12 I posted a free browser puzzle called Hanzi Beasts here. It looks like
+the site-wide spam filter caught it before it ever reached the queue.
+
+I'd rather ask than guess, so two quick questions:
+
+1. Would you be open to approving that original post, or to me reposting it?
+2. The game is live on my own domain (hanzi.fun — registered a couple of weeks
+   ago) and also on itch.io. I'm not asking you to whitelist a new domain — if
+   linking the itch.io project page instead is easier on the filter, I'll do that.
+
+What it is, in one line: you drag two Chinese radicals together and the beast
+hiding inside the resulting character shows up. Free, no signup, no download,
+plays in the browser. No Chinese knowledge required — working out what combines
+is the entire game.
+
+No rush, and no problem if the answer is no. I'd just rather not burn the one
+post I get.
+
+Thanks for reading.
+```
+
+### 三条分支怎么接
+
+| 版主回什么 | 你做什么 |
+|---|---|
+| 「approve 了 / 直接发吧」 | **优先让他 approve 原帖**（这样不占重发次数）。他若让你重发，就用 itch 链接发新帖，标题照 §三 |
+| 「用 itch 链接可以」 | 用 itch 链接发，正文里**不重复贴 hanzi.fun**（一个链接就够，两个像导流） |
+| 「必须直链自有域 / 不允许自推」 | 别争。放弃 r/WebGames 这条线，转 **r/incremental_games 的 Feedback Friday**（见下方） |
+
+> ⚠️ 一个必须说清的风险：**这封信本身也可能没回音**。所以不要把它当成唯一通路，48 小时没回就走下面这条。
+
+### 备用主线：r/incremental_games 的 Feedback Friday
+
+**这条比 r/WebGames 更值得先做，而且不需要求人。** Feedback Friday 是版务**主动开设**的开发者自推专栏——在专栏里发自己的游戏是规则内行为，不触发 spam filter 的"未报备自推"逻辑。
+
+- 找当周置顶/侧栏的 Feedback Friday 帖，**用评论形式发**，不是新帖
+- 内容用 §四 的收集/图鉴角度改写（12 只兽 + 图鉴完成度），链接用 itch 页面
+- 硬性礼貌：**先给帖子里另外 2-3 个人的游戏留具体反馈**再发自己的，这是这个专栏的默认规矩
+- 一周一次，可以持续做——**这是唯一可以反复用的合规渠道**
+
+### 备用 Modmail：r/ChineseLanguage（姿态完全不同）
+
+这个 sub 默认禁自推，且**最忌讳装路人**。不要以"我做了个游戏"开场，改成资源角度 + 明确开发者身份：
+
+```
+Hi mods,
+
+Quick question before I post anything.
+
+I built a small free browser toy for practicing radical recognition — you drag
+two radicals together and see what character they form. No signup, no ads.
+
+I'm the developer, and I know self-promotion is restricted here, so I wanted to
+ask first: would a post framed as "a resource for learners, feedback welcome" be
+acceptable, or is there a weekly thread I should use instead?
+
+Happy to skip it entirely if it doesn't fit the sub.
+
+Thanks.
+```
+
+---
+
+## 七、发完之后看什么（别看点赞）
 
 Plausible 里看这几个，而不是 pageview：
 
@@ -168,7 +264,7 @@ Plausible 里看这几个，而不是 pageview：
 
 ---
 
-## 七、明确别做的事
+## 八、明确别做的事
 
 - ❌ 同一天把同一段文案发到多个 sub（垃圾过滤会抓）
 - ❌ 用新号 / 零 karma 号直接发外链
