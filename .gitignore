@@ -13,3 +13,6 @@ dex-preview.png
 mobile-check.png
 # itch 封面的 2x 中间产物（源文件是 cover-itch.html，可随时重渲）
 itch-cover-2x.png
+# 截图核对对照图（依赖上面被忽略的 shot-*.png，出了本机就渲染不出内容）
+itch-shots-review.html
+itch-shots-review.png

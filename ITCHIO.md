@@ -28,9 +28,28 @@
 **只传这 4 张（itch 建议 3-5 张）：** `shot-board.png`、`shot-beast.png`、`shot-dex.png`、`shot-mobile.png`（第 4 张可选）
 
 **不要传：**
-- ❌ `shot-*-s.png`（三张）—— 不是小图，是几乎同尺寸的近重复渲染（1120×1139 vs 1120×1160），传了就是同画面贴两遍
-- ❌ `mobile-check.png` —— **调试截图**。像素分析：深色占比 **99.5%**，而真实游戏画面是 60-80% 奶油底色（`shot-board.png` 79.8%、`shot-dex.png` 60.8%、`shot-mobile.png` 54.2%）。它根本不是游戏画面，不能对外
+- ❌ `shot-*-s.png`（三张）—— **09-22 实测定性：不是"小图"，是原图的裁剪版**。裁到同尺寸后与原图 **100.0% 像素完全一致**，只是切掉了底部（board/beast 矮 21px、dex 矮 93px）。两套都传 = 同一画面出现两次
+- ❌ `mobile-check.png` —— **调试截图**。像素分析：深色占比 **99.5%**、仅 481 种颜色，而真实游戏画面是 54–80% 奶油底色（`shot-board.png` 79.8%、`shot-dex.png` 60.8%、`shot-mobile.png` 54.2%）。它根本不是游戏画面，不能对外
 - ❌ `preview.png` / `gallery-preview.png` / `dex-preview.png` —— 开发期的长图预览，非最终素材
+- ❌ `shot-mobile-card.png` —— 与 `shot-mobile.png` 同为手机版，**二选一**，别都传
+
+### 截图核对的操作步骤（09-22 补）
+
+**要核的是两件事**：① 已上传的缩略图内容对不对；② 它们有没有真的显示在项目页上（**上传成功 ≠ 页面能看到**，这是两个独立环节）。
+
+itch 的 Screenshots 区**只显示缩略图、不显示文件名**，所以只能靠画面比对。用本地生成的对照图：
+
+```bash
+# 对照图已生成（本地文件，依赖 .gitignore 掉的 shot-*.png，故不入仓库）
+open /Users/jimmyxu/WorkBuddy/2026-09-06-17-15-17/hanzi-beasts/itch-shots-review.png
+```
+
+1. 登录 itch → **Dashboard → Hanzi Beasts → Edit game** → 滚到 **Screenshots** 区
+2. 数一遍缩略图张数，逐张与对照图比对：出现**画面重复的两张**，删掉较矮的那张（文件名以 `-s` 结尾）；出现**纯暗色**的一张，删掉它
+3. 如需补传，`Add screenshots` 上传对照图里标「该传」的三张（想展示手机端再加 `shot-mobile.png`）
+4. 点 **Save**
+5. **验证画廊真的显示**：开无痕窗口（未登录）访问 https://hanzifun.itch.io/hanzi-beasts → 把窗口**拉宽到全屏** → 确认描述与评论区之间有截图画廊
+   （09-13 那次窄窗口下画廊不可见，未能区分"布局藏了"还是"没挂上"，所以这次务必用宽窗口确认）
 
 ## Tagline（Short description or tagline 字段填这个）
 
