@@ -45,6 +45,7 @@ function load() {
 const $ = s => document.querySelector(s);
 const shelfEl = $('#shelf'), slotsEl = $('#slots'), fbEl = $('#feedback');
 const dexEl = $('#dex'), progEl = $('#progress'), hintEl = $('#hint');
+const combineEl = $('#combine'), onboardHintEl = $('#onboardHint');
 const modalEl = $('#modal'), modalBody = $('#modalBody'), statsEl = $('#statsPanel');
 
 /* ---------------- 渲染 ---------------- */
@@ -64,7 +65,12 @@ function renderSlots() {
     return `<button class="slot filled" data-i="${i}" style="--c:${r.color}" aria-label="remove ${r.en}">
       <span class="slot-c">${r.c}</span><span class="slot-en">${r.en}</span></button>`;
   }).join('');
-  $('#combine').disabled = state.slots.length < 2;
+  // P0-2：禁用态不像坏掉 —— 未满足条件时按钮文案是引导语，满足后才是 Combine。
+  // disabled 规则本身不动（<2 部首仍不可点），保持约束与可访问性。
+  const ready = state.slots.length >= 2;
+  combineEl.disabled = !ready;
+  combineEl.textContent = ready ? 'Combine' : 'Pick 2–3 radicals';
+  onboardHintEl.classList.toggle('show', state.slots.length === 0);
 }
 
 function renderDex() {

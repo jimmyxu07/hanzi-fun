@@ -50,7 +50,13 @@ h1 {
   font-size: 30px; font-weight: 800; margin: 0;
   letter-spacing: -0.02em;
 }
-.tag { margin: 6px 0 12px; color: var(--muted); font-size: 14px; }
+/* P0-3：副标承接力 —— 从 14px 浅灰提到 16px 中棕 500，贴近 H1 形成 hero 组合 */
+.tag { margin: 8px 0 8px; color: #6A5F52; font-size: 16px; font-weight: 500; }
+/* P0-1：消除搜索用户三怕（收费/下载/注册）的安抚 chip 行 */
+.feat {
+  margin: 0 0 12px; font-size: 13px; font-weight: 600;
+  letter-spacing: .02em; color: var(--muted);
+}
 .prog {
   display: inline-block; padding: 5px 16px; border-radius: 999px;
   background: var(--card); border: 2px solid var(--line); font-size: 13px;
@@ -105,6 +111,12 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .primary:not(:disabled):hover { background: #F57F52; }
 .primary:active:not(:disabled) { box-shadow: 0 1px 0 var(--accent-d); }
 .ghost { background: var(--card); }
+
+/* P0-2：Combine 禁用态引导小提示，仅在 0 部首选中时显示（由 game.js renderSlots 驱动） */
+.onboard-hint {
+  display: none; margin-top: 10px; font-size: 12.5px; color: var(--muted);
+}
+.onboard-hint.show { display: block; }
 
 .feedback {
   min-height: 22px; margin-top: 12px; font-size: 13.5px; color: var(--muted);
