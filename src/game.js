@@ -50,8 +50,8 @@ const modalEl = $('#modal'), modalBody = $('#modalBody'), statsEl = $('#statsPan
 
 /* ---------------- 渲染 ---------------- */
 function renderShelf() {
-  shelfEl.innerHTML = Object.entries(RADICALS).map(([id, r], i) => `
-    <button class="rad${i === 0 ? ' first' : ''}" data-id="${id}" style="--c:${r.color}" aria-label="${r.en}">
+  shelfEl.innerHTML = Object.entries(RADICALS).map(([id, r]) => `
+    <button class="rad" data-id="${id}" style="--c:${r.color}" aria-label="${r.en}">
       <span class="rad-c">${r.c}</span>
       <span class="rad-en">${r.en}</span>
     </button>`).join('');
@@ -127,11 +127,19 @@ function showFeedback(msg, level) {
 function clearFeedback() { fbEl.className = 'feedback'; fbEl.textContent = ''; }
 
 /* ---------------- 提示 ---------------- */
+// 脉冲跟随 Hint 目标，而不是固定闪第一个部首 —— 避免「发光」与「提示文字」指向不同部首
+function pulseRadical(id) {
+  document.querySelectorAll('.rad.first').forEach(b => b.classList.remove('first'));
+  const btn = shelfEl.querySelector(`.rad[data-id="${id}"]`);
+  if (btn) btn.classList.add('first');
+}
+
 function showHint(auto) {
   const rest = RECIPES.filter(r => !state.unlocked.has(r.out)).sort((a, b) => a.tier - b.tier);
   if (!rest.length) { hintEl.textContent = `You found all ${RECIPES.length}.`; hintEl.classList.add('show'); return; }
   const target = rest[0];
   const first = RADICALS[target.parts[0]];
+  pulseRadical(target.parts[0]);
   hintEl.innerHTML = `Hint: a ${target.parts.length}-part recipe you haven't found uses
     <b style="color:${first.color}">${first.c} ${first.en}</b>.`;
   hintEl.classList.add('show');
