@@ -1,9 +1,9 @@
-# 部署手册 · GitHub + Cloudflare Pages
+# 部署手册 · GitHub + Cloudflare Workers（已接 Git 自动部署）
 
 目标：把 `hanzi-beasts/` 静态站推到线上，拿到可分享的 URL 和真实埋点数据。
 分工：**你出授权，我出操作**。下面每一步都标了是谁做。
 
-**当前状态（2026-09-09 更新）**
+**当前状态（2026-09-27 更新 · 已实测核验）**
 
 | 项 | 值 |
 |---|---|
@@ -11,9 +11,12 @@
 | Zone ID | `df97446ed272d4fca07f6df1dedf5422` |
 | Account ID | `9d0e60120e054fd31fbaa996ebc29f9a`（Jimmy_xu07@163.com's Account） |
 | GitHub repo | `jimmyxu07/hanzi-fun`（public） |
-| 代码 | ✅ **已推送**（2026-09-09，main 分支 25 个文件，commit `6ebd9b9`） |
-| 运行环境 | ⚠️ **Worker** `long-king-ebb2`（不是 Pages），已绑自定义域名 hanzi.fun |
-| 剩余手工 | Worker → Settings → Build → **Connect to Git** 选 `hanzi-fun`（见第三节路线 E） |
+| 运行环境 | ✅ **Worker，CF 面板里的名字是 `hanzi-fun`**（不是 Pages）<br>⚠️ `long-king-ebb2` 是**早期名字 / workers.dev 前缀**（`long-king-ebb2.quickalt-api.workers.dev`），**已改名，别再按它找** |
+| 部署方式 | ✅ **已 Connect to Git**（绑 `jimmyxu07/hanzi-fun`）—— push 到 main 即自动构建上线，**无需再手传 zip** |
+| 部署验证 | 2026-09-27 实测：push 后约 3 分钟内上线；`index.html` / `src/game.js` / `styles.css` 三个文件 md5 **与本地仓库完全一致** |
+| 时间窗 | 从 push 到 live 生效约 **2–5 分钟**，别推完立刻验收 |
+
+> 排错备忘：若 CF 面板搜不到 Worker，用**仓库名 `hanzi-fun`** 去搜，不要用 `long-king-ebb2`。
 
 ---
 
@@ -128,22 +131,34 @@ CLOUDFLARE_API_TOKEN=xxx npx wrangler pages deploy . --project-name=hanzi-fun
    - Build output directory: **`/`** ← 关键。我们不是 dist 项目，`index.html` 就在根目录
 4. 之后每次 push 到 main 自动部署
 
-### 路线 E：Worker + Connect to Git（**当前推荐，差最后一步**）
+### 路线 E：Worker + Connect to Git（✅ **已完成，2026-09-27 核验**）
 
-现在线上跑的是 **Worker `long-king-ebb2`**（手工 Upload assets 建的），不是 Pages。
-所以它**不受 Pages 权限管**，也不该再走手动传 zip。
+现在线上跑的是 **Worker `hanzi-fun`**（面板名），已 Connect to Git 绑 `jimmyxu07/hanzi-fun`。
+**日常部署只需 `git push origin main`**，约 2–5 分钟自动上线。手动传 zip 已退役。
 
-1. CF Dashboard → **Workers & Pages** → 点开 `long-king-ebb2`
+当时做的配置（留存备查，无需重做）：
+
+1. CF Dashboard → **Workers & Pages** → 点开 **`hanzi-fun`**
 2. **Settings** 标签 → **Build** 区 → **Connect to Git**
-3. 授权 GitHub（若之前没授权过，会跳一次 OAuth）→ 选 `jimmyxu07/hanzi-fun`
+3. 授权 GitHub → 选 `jimmyxu07/hanzi-fun`
 4. Build settings：
    - Framework preset: **None**
    - Build command: **留空**
    - Build output directory: **`/`**（`index.html` 在根目录）
-5. Save → 之后每次 push 到 main 自动部署，手动传 zip 成为历史
+5. Save → 之后每次 push 到 main 自动部署
 
-⚠️ 注意：Connect 之后**第一次会自动触发一次构建部署**，会覆盖你现在手传的版本。
-内容一致（同一份代码），所以没有风险；只是部署来源从"上传"变成"git"。
+### 验收线上是否已生效（推荐，30 秒）
+
+```bash
+cd hanzi-beasts
+for f in index.html src/game.js styles.css; do
+  l=$(md5 -q "$f")
+  r=$(curl -s -L "https://hanzi.fun/$f?nocache=$(date +%s%N)" | md5 -q)
+  [ "$l" = "$r" ] && echo "SAME  $f" || echo "DIFF  $f  本地=$l 线上=$r"
+done
+```
+
+三个 `SAME` = 线上与本地仓库逐字节一致，部署成功。（`?nocache=` 是防 CDN 缓存误导）
 
 ### 路线 D：我直接调 CF API（需要一个带 Pages:Edit 的 token）
 
