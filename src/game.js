@@ -129,7 +129,7 @@ function clearFeedback() { fbEl.className = 'feedback'; fbEl.textContent = ''; }
 /* ---------------- 提示 ---------------- */
 function showHint(auto) {
   const rest = RECIPES.filter(r => !state.unlocked.has(r.out)).sort((a, b) => a.tier - b.tier);
-  if (!rest.length) { hintEl.textContent = "You found all 30."; hintEl.classList.add('show'); return; }
+  if (!rest.length) { hintEl.textContent = `You found all ${RECIPES.length}.`; hintEl.classList.add('show'); return; }
   const target = rest[0];
   const first = RADICALS[target.parts[0]];
   hintEl.innerHTML = `Hint: a ${target.parts.length}-part recipe you haven't found uses
