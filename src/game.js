@@ -50,8 +50,8 @@ const modalEl = $('#modal'), modalBody = $('#modalBody'), statsEl = $('#statsPan
 
 /* ---------------- 渲染 ---------------- */
 function renderShelf() {
-  shelfEl.innerHTML = Object.entries(RADICALS).map(([id, r]) => `
-    <button class="rad" data-id="${id}" style="--c:${r.color}" aria-label="${r.en}">
+  shelfEl.innerHTML = Object.entries(RADICALS).map(([id, r], i) => `
+    <button class="rad${i === 0 ? ' first' : ''}" data-id="${id}" style="--c:${r.color}" aria-label="${r.en}">
       <span class="rad-c">${r.c}</span>
       <span class="rad-en">${r.en}</span>
     </button>`).join('');
@@ -145,6 +145,26 @@ function addPart(id) {
   clearFeedback();
   renderSlots();
   track('radical_pick', { id });
+  dismissOnboard(); // 用户已上手 → 引导层立即消失，不阻断
+}
+
+/* ---------------- 首屏引导 ---------------- */
+const ONBOARD_KEY = 'hb_onboarded';
+function dismissOnboard() {
+  const el = $('#onboard');
+  if (el) el.hidden = true;
+  document.querySelectorAll('.rad.first').forEach(b => b.classList.remove('first'));
+  try { localStorage.setItem(ONBOARD_KEY, '1'); } catch (e) {}
+}
+function maybeOnboard() {
+  if (state.unlocked.size !== 0) return;            // 仅新手（无任何解锁）展示
+  let seen = false;
+  try { seen = localStorage.getItem(ONBOARD_KEY) === '1'; } catch (e) {}
+  if (seen) return;
+  const el = $('#onboard');
+  if (!el) return;
+  el.hidden = false;
+  showHint(true);                                   // 顺手给出具体第一步（如「用 氵 water」）
 }
 
 function removeSlot(i) {
@@ -259,6 +279,7 @@ slotsEl.addEventListener('click', e => {
 $('#combine').addEventListener('click', doCombine);
 $('#clear').addEventListener('click', () => { state.slots = []; renderSlots(); clearFeedback(); });
 $('#hintBtn').addEventListener('click', () => showHint(false));
+$('#onboardX').addEventListener('click', dismissOnboard);
 dexEl.addEventListener('click', e => {
   const b = e.target.closest('.cell.got');
   if (!b) return;
@@ -282,6 +303,7 @@ if (new URLSearchParams(location.search).has('all')) {
 renderShelf();
 renderAll();
 if (state.unlocked.size === 0) track('session_start', { fresh: true });
+maybeOnboard();
 
 // ?demo=<recipeId> —— 直接展开某只兽的卡片，用于宣传图/截图，不写存档、不触发埋点
 const demoId = new URLSearchParams(location.search).get('demo');
