@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opt out of analytics — Hanzi Beasts</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#FFF7E8;--card:#FFFFFF;--ink:#3B3228;--muted:#8A7E6E;--accent:#F2703F;--accent-d:#D4552A;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:16px;box-shadow:4px 4px 0 var(--ink);max-width:540px;width:100%;padding:28px}
+h1{font-size:20px;margin:0 0 4px}
+.sub{color:var(--muted);font-size:13px;margin:0 0 20px}
+p{font-size:14px}
+.state{font-weight:700;padding:12px 14px;border-radius:10px;margin:18px 0;font-size:14px}
+.on{background:#E8F5E9;color:#1B5E20;border:1.5px solid #1B5E20}
+.off{background:#FFF3E0;color:#8A4B00;border:1.5px solid #8A4B00}
+button{font:inherit;font-weight:700;border:2px solid var(--ink);border-radius:10px;padding:11px 18px;cursor:pointer;background:var(--accent);color:#fff;box-shadow:3px 3px 0 var(--ink);margin:0 8px 8px 0}
+button.ghost{background:#fff;color:var(--ink)}
+button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+code{background:#F3EDE2;padding:1px 5px;border-radius:4px;font-size:12.5px}
+a{color:var(--accent-d)}
+.hint{font-size:12.5px;color:var(--muted);margin-top:18px;border-top:1px dashed #E3D9C8;padding-top:14px}
+</style>
+</head>
+<body>
+<main class="card">
+  <h1>Turn off analytics for this browser</h1>
+  <p class="sub">Hanzi Beasts · hanzi.fun</p>
+
+  <p>We run <a href="https://plausible.io" rel="noopener">Plausible</a> (cookieless, no personal data, no ads) to see how many people play and where they get stuck. If you're on the team — or simply don't want to be counted — this page stops <em>this browser</em> from being recorded.</p>
+
+  <div id="state" class="state off">Checking…</div>
+
+  <div>
+    <button id="offBtn">Exclude this browser</button>
+    <button id="onBtn" class="ghost">Re-enable counting</button>
+  </div>
+
+  <p class="hint">
+    The flag lives in <code>localStorage.plausible_ignore</code> on <b>hanzi.fun</b> only and never leaves your device.
+    It applies to every page on this domain, so one click here excludes you from now on — per browser, per device.
+    <br><b>Tip:</b> bookmark this page on your phone. That's the whole setup.
+  </p>
+</main>
+<script>
+(function () {
+  var el = document.getElementById('state');
+  function isExcluded() {
+    try { return localStorage.getItem('plausible_ignore') === 'true'; } catch (e) { return false; }
+  }
+  function render() {
+    if (isExcluded()) {
+      el.className = 'state on';
+      el.textContent = '\u2713 This browser is excluded — your visits are not counted.';
+    } else {
+      el.className = 'state off';
+      el.textContent = '\u25CF Your visits from this browser are currently being counted.';
+    }
+  }
+  document.getElementById('offBtn').addEventListener('click', function () {
+    try { localStorage.setItem('plausible_ignore', 'true'); } catch (e) {}
+    render();
+  });
+  document.getElementById('onBtn').addEventListener('click', function () {
+    try { localStorage.removeItem('plausible_ignore'); } catch (e) {}
+    render();
+  });
+  render();
+})();
+</script>
+</body>
+</html>

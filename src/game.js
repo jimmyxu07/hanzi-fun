@@ -134,7 +134,7 @@ function pulseRadical(id) {
   if (btn) btn.classList.add('first');
 }
 
-function showHint(auto) {
+function showHint(auto, eventName) {
   const rest = RECIPES.filter(r => !state.unlocked.has(r.out)).sort((a, b) => a.tier - b.tier);
   if (!rest.length) { hintEl.textContent = `You found all ${RECIPES.length}.`; hintEl.classList.add('show'); return; }
   const target = rest[0];
@@ -143,7 +143,8 @@ function showHint(auto) {
   hintEl.innerHTML = `Hint: a ${target.parts.length}-part recipe you haven't found uses
     <b style="color:${first.color}">${first.c} ${first.en}</b>.`;
   hintEl.classList.add('show');
-  if (auto) track('hint_auto', { target: target.id });
+  // 事件名必须由调用方显式给：首屏引导 ≠ 用户卡住，两者语义不同，别共用一个名字
+  if (auto) track(eventName || 'hint_auto', { target: target.id });
 }
 
 /* ---------------- 合成 ---------------- */
@@ -172,7 +173,7 @@ function maybeOnboard() {
   const el = $('#onboard');
   if (!el) return;
   el.hidden = false;
-  showHint(true);                                   // 顺手给出具体第一步（如「用 氵 water」）
+  showHint(true, 'hint_onboard');                   // 首屏引导：独立事件名，≈ 新访客数（健康信号，非故障信号）
 }
 
 function removeSlot(i) {
@@ -211,6 +212,7 @@ function doCombine() {
     const fb = feedback(parts);
     showFeedback(fb.msg, fb.level);
     track('combine_fail', { parts: k, level: fb.level, streak: state.failStreak });
+    // → hint_auto：唯一代表「用户卡住」的信号（连败 5 次才触发）
     if (state.failStreak >= 5 && !state.hintShown) { state.hintShown = true; showHint(true); }
   }
   save();
